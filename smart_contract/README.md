@@ -1,13 +1,4 @@
-# Sample Hardhat Project
+# Smart Contract
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
+- Quest Art NFT
+  - TheQUEST = Deployed by Thirdweb at [0x836522BE88F1A5E30479d382c598e1E0fAEAA3c5](https://thirdweb.com/mumbai/0x836522BE88F1A5E30479d382c598e1E0fAEAA3c5)
