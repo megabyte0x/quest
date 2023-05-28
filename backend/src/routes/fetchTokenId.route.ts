@@ -4,7 +4,7 @@ import axios from "axios";
 const router = express.Router();
 
 // 0 => Polygon Quest NFTs
-// 1 => THE QUEST NFT
+// 1 => Thirdweb NFT
 const contractAddresses = [
   "0x2953399124F0cBB46d2CbACD8A89cF0599974963",
   "0x836522BE88F1A5E30479d382c598e1E0fAEAA3c5",
@@ -48,7 +48,7 @@ router.get("/fetchTokenId", (_req, res) => {
     },
     headers: { accept: "application/json" },
   };
-  // dev note: This will check whether the user have the NFT from the Polygon Quest NFTs (goku, naruto,..) or not, if then then it will return true. If the user have the NFT from THE QUEST NFT then it will return true and the tokenId of the NFT.
+  // dev note: This will check whether the user have the NFT from the Polygon Quest NFTs (goku, naruto,..) or not, if then then it will return true. If the user have the NFT from Thirdweb NFT then it will return true and the tokenId of the NFT.
   axios
     .request(options)
     .then(function (response) {
@@ -66,7 +66,7 @@ router.get("/fetchTokenId", (_req, res) => {
             }
           });
         } else {
-          //THE QUEST NFT check
+          //Thirdweb NFT check
           res.status(200).json({
             alreadyMinted: true,
             tokenId: response.data.ownedNfts[0].tokenId,

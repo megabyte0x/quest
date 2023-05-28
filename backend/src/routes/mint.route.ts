@@ -10,7 +10,7 @@ router.get("/mint", async (_req, res) => {
   const imageURI = body.imageURI;
   const metadata = {
     name: "Quest NFT",
-    description: "This is The Quest by Polygon Developer Advocates",
+    description: "This is Thirdweb by Polygon Developer Advocates",
     image: imageURI, // This can be an image url or file
   };
 
