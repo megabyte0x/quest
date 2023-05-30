@@ -99,10 +99,15 @@ router.get("/transferAssetsTxnData", async (_req, res) => {
 
     const data = safeBatchTransferFromFunctionSelector + encodedParams.slice(2);
 
+    const transactionGasPrice = await provider.estimateGas({
+      to: contractAddresses[0],
+      data: data,
+    });
+
     const transactionData = {
       to: contractAddresses[0],
       data: data,
-      gasLimit: 1000000, // you might need to adjust this value
+      gasLimit: ethers.utils.formatEther(transactionGasPrice), // you might need to adjust this value
     };
 
     res.status(200).json({ txnData: transactionData });
