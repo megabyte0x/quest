@@ -1,0 +1,5 @@
+[submodule "smart_contracts/lib/contracts"]
+	path = smart_contracts/lib/contracts
+	url = https://github.com/thirdweb-dev/contracts
+[submodule "lib/contracts"]
+	branch = v3.5.4
