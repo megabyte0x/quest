@@ -3,6 +3,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
+import Mint from "../components/mint";
+import FetchAccount from "../components/fetchAccount";
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -17,6 +20,8 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <ConnectButton />
+        <Mint />
+        <FetchAccount />
       </main>
 
       <footer className={styles.footer}>
