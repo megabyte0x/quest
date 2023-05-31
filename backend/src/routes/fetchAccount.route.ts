@@ -38,7 +38,7 @@ const accountFunctionSignature = [
         name: "tokenId",
         type: "uint256",
       },
-      { name: "salt", type: "unit256" },
+      { name: "salt", type: "uint256" },
     ],
     outputs: [
       {
@@ -55,17 +55,19 @@ const contractWithAccountInstance = new ethers.Contract(
   provider
 );
 
-const salt = 0;
+const salt = ethers.utils.parseUnits("0", "ether");
+const chainId = ethers.utils.parseUnits("80001", "ether");
 router.get("/fetchAccount", async (_req, res) => {
   const body = _req.body;
-  const tokenId = body.tokenId;
+  const tokenId = body.tokenId as string;
+  const tokenIdAsBigInt = ethers.utils.parseUnits(tokenId, "ether");
 
   try {
     const accountAddress = await contractWithAccountInstance.account(
       contractAddresses[3],
-      80001,
+      chainId,
       contractAddresses[1],
-      tokenId,
+      tokenIdAsBigInt,
       salt
     );
 

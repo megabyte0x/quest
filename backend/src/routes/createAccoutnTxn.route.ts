@@ -6,7 +6,7 @@ const provider = new ethers.providers.JsonRpcProvider(
   "https://rpc.mumbai.polygon.vision/"
 );
 
-router.get("/createAccoutnTxn", async (_req, res) => {
+router.get("/createAccountTxn", async (_req, res) => {
   const body = _req.body;
   const txnData = body.txnData;
 

@@ -39,7 +39,7 @@ const createAccountFunctionSignature = [
       },
       {
         name: "salt",
-        type: "unit256",
+        type: "uint256",
       },
       {
         name: "initData",
@@ -66,20 +66,21 @@ const createAccountFunctionSelector = ethers.utils
   .id(createAccountFunctionName)
   .slice(0, 10);
 
-const chainId = "80001";
-const salt = "0";
+const salt = ethers.utils.parseUnits("0", "ether");
+const chainId = ethers.utils.parseUnits("80001", "ether");
 const initData = "0x8129fc1c";
 
 router.get("/createAccountTxnData", async (_req, res) => {
   const body = _req.body;
-  const tokenId = body.tokenId;
+  const tokenId = body.tokenId as string;
+  const tokenIdAsBigInt = ethers.utils.parseUnits(tokenId, "ether");
 
   try {
     const params = [
       contractAddresses[3],
       chainId,
       contractAddresses[2],
-      tokenId,
+      tokenIdAsBigInt,
       salt,
       initData,
     ];
