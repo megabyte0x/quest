@@ -6,6 +6,7 @@ import axios from "axios";
 import { CONTRACT_ADDRESSES } from "../config/contract";
 import { mint } from "../services/thirdWeb.service";
 import { uploadImg } from "../services/bundler.service";
+import { getTokenIdResponseData } from "../services/alchemy.service";
 
 export const getArtHistory = asyncWrap(
   // @ts-ignore
@@ -25,23 +26,14 @@ export const getTokenId = asyncWrap(
       const address = body.address;
       const contractAddressIndex = body.contractAddressIndex;
 
-      const options = {
-        method: "GET",
-        url: `https://polygon-mumbai.g.alchemy.com/nft/v3/${process.env.ALCHEMY_KEY}/getNFTsForOwner`,
-        params: {
-          owner: address,
-          "contractAddresses[]": CONTRACT_ADDRESSES[contractAddressIndex],
-          withMetadata: "false",
-          pageSize: "100",
-        },
-        headers: { accept: "application/json" },
-      };
-
-      const response = await axios.request(options);
-      if (response.data.ownedNfts.length > 0) {
+      const responseData = await getTokenIdResponseData(
+        address,
+        contractAddressIndex
+      );
+      if (responseData.ownedNfts.length > 0) {
         //Polygon Quest NFTs check
         if (contractAddressIndex === 0) {
-          response.data.ownedNfts.forEach((nft: any) => {
+          responseData.ownedNfts.forEach((nft: any) => {
             if (macthTokenId(nft.tokenId)) {
               res.status(200).json({
                 alreadyMinted: true,
@@ -55,7 +47,7 @@ export const getTokenId = asyncWrap(
           //Thirdweb NFT check
           res.status(200).json({
             alreadyMinted: true,
-            tokenId: response.data.ownedNfts[0].tokenId,
+            tokenId: responseData.ownedNfts[0].tokenId,
           });
         }
       } else {

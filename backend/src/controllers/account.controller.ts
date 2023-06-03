@@ -7,7 +7,7 @@ import {
   getAssetTransactionData,
   getTransactionLink,
 } from "../services/ethers.service";
-import axios from "axios";
+import { getTokenIdResponseData } from "../services/alchemy.service";
 
 export const getCreateAccTxnData = asyncWrap(
   async (req: Request, res: Response, _next: NextFunction) => {
@@ -45,23 +45,10 @@ export const getTransferAssetTxnData = asyncWrap(
     const address = body.address;
 
     try {
-      //  TODO MAKE A GENRIC FUNCTION RATHER THAN CALLING OWN SERVER
-      const thirdwebTokenId = await axios.get(
-        "http://localhost:5000/fetchTokenId",
-        {
-          params: {
-            address: address,
-            contractAddressIndex: 1,
-          },
-        }
-      );
+      const thirdwebTokenData = await getTokenIdResponseData(address, 1);
+      const thirdwebTokenId = thirdwebTokenData.ownedNfts[0].tokenId;
 
-      const account = await axios.get("http://localhost:5000/fetchAccount", {
-        params: {
-          tokenId: thirdwebTokenId.data.tokenId,
-        },
-      });
-      const tkbAddress = account.data.accountAddress;
+      const tkbAddress = await getAccountAddress(thirdwebTokenId);
 
       const transactionData = await getAssetTransactionData(
         address,
