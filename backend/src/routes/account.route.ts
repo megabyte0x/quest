@@ -1,21 +1,23 @@
-import express from "express"
-import { getBatchTransferFromTxn, getCreateAccTxn, getCreateAccTxnData, getFetchAccount, getTransferAssetTxnData } from "../controllers/account.controller";
+import express from "express";
+import {
+  getExecuteTxn,
+  getCreateAccTxnData,
+  getFetchAccount,
+  getTransferAssetTxnData,
+} from "../controllers/account.controller";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', (_req, res) => {
-    res.status(200).json("This is nft route")
-})
+router.get("/", (_req, res) => {
+  res.status(200).json("This is nft route");
+});
 
 router.get("/createAccountTxnData", getCreateAccTxnData);
 
-router.get("/createAccountTxn", getCreateAccTxn);
+router.get("/executeTxn", getExecuteTxn);
 
 router.get("/transferAssetsTxnData", getTransferAssetTxnData);
 
-router.get("/fetchAccount", getFetchAccount)
+router.post("/fetchAccount", getFetchAccount);
 
-router.get("/safeBatchTransferFromTxn", getBatchTransferFromTxn)
-
-
-export default router
+export default router;
