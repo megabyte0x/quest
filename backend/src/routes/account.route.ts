@@ -12,11 +12,11 @@ router.get("/", (_req, res) => {
   res.status(200).json("This is nft route");
 });
 
-router.get("/createAccountTxnData", getCreateAccTxnData);
+router.post("/createAccountTxnData", getCreateAccTxnData);
 
-router.get("/executeTxn", getExecuteTxn);
+router.post("/executeTxn", getExecuteTxn);
 
-router.get("/transferAssetsTxnData", getTransferAssetTxnData);
+router.post("/transferAssetsTxnData", getTransferAssetTxnData);
 
 router.post("/fetchAccount", getFetchAccount);
 

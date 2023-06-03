@@ -7,16 +7,16 @@ router.get('/', (_req, res) => {
     res.status(200).json("This is nft route")
 })
 
-router.get("/artHistory", getArtHistory);
+router.post("/artHistory", getArtHistory);
 
-router.get('/fetchTokenId', getTokenId)
+router.post('/fetchTokenId', getTokenId)
 
-router.get('/generateArt', getGenerateArt)
+router.post('/generateArt', getGenerateArt)
 
-router.get('/getAllNFT', getAllNFT)
+router.post('/getAllNFT', getAllNFT)
 
-router.get('/mint', getMint)
+router.post('/mint', getMint)
 
-router.get('/uploadImage', getUploadImage)
+router.post('/uploadImage', getUploadImage)
 
 export default router
