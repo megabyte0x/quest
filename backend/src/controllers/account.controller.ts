@@ -17,7 +17,7 @@ export const getCreateAccTxnData = asyncWrap(
     try {
       const transactionData = await getAccTransactionData(tokenId);
 
-      res.status(200).json({ transactionData });
+      res.status(200).json({ transactionData, success: true });
     } catch (error) {
       throwError(500, error);
     }
@@ -32,7 +32,7 @@ export const getExecuteTxn = asyncWrap(
     try {
       const txnLink = await getTransactionLink(txnData);
 
-      res.status(200).json({ txnLink });
+      res.status(200).json({ txnLink, success: true });
     } catch (error) {
       throwError(500, error);
     }
@@ -55,7 +55,7 @@ export const getTransferAssetTxnData = asyncWrap(
         tkbAddress
       );
 
-      res.status(200).json({ transactionData });
+      res.status(200).json({ transactionData, success: true });
     } catch (error) {
       throwError(500, error);
     }
@@ -70,7 +70,7 @@ export const getFetchAccount = asyncWrap(
     try {
       const accountAddress = await getAccountAddress(tokenId);
 
-      res.status(200).json({ tkbAddress: accountAddress });
+      res.status(200).json({ tkbAddress: accountAddress, success: true });
     } catch (error) {
       throwError(500, error);
     }

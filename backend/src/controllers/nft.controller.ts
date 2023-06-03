@@ -40,7 +40,7 @@ export const getTokenId = asyncWrap(
                 tokenId: nft.tokenId,
               });
             } else {
-              res.status(200).json({ alreadyMinted: false });
+              res.status(200).json({ alreadyMinted: false, success: true });
             }
           });
         } else {
@@ -48,10 +48,11 @@ export const getTokenId = asyncWrap(
           res.status(200).json({
             alreadyMinted: true,
             tokenId: responseData.ownedNfts[0].tokenId,
+            success: true
           });
         }
       } else {
-        res.status(200).json({ alreadyMinted: false });
+        res.status(200).json({ alreadyMinted: false, success: true });
       }
     } catch (error) {
       throwError(500, error);
@@ -104,7 +105,7 @@ export const getAllNFT = asyncWrap(
               return {};
             }
           });
-          res.status(200).json({ data });
+          res.status(200).json({ data, success: true });
         } else {
           const data = response.data.ownedNfts.map((nft: any) => {
             if (macthTokenId(nft.tokenId)) {
@@ -116,10 +117,10 @@ export const getAllNFT = asyncWrap(
               return {};
             }
           });
-          res.status(200).json({ data });
+          res.status(200).json({ data, success: true });
         }
       } else {
-        res.status(500).json({ data: null });
+        res.status(500).json({ data: null, success: true });
       }
     } catch (error) {
       throwError(500, error);
@@ -144,7 +145,7 @@ export const getMint = asyncWrap(
       // const tokenId = tx.id; // the id of the NFT minted
       // const nft = await tx.data(); // (optional) fetch details of minted NFT
 
-      res.status(200).json({ receipt });
+      res.status(200).json({ receipt, success: true });
     } catch (error) {
       throwError(500, error);
     }
@@ -160,7 +161,7 @@ export const getUploadImage = asyncWrap(
     try {
       const { id } = await uploadImg(fileToUpload, fileType);
 
-      res.status(200).json({ txLink: `https://arweave.net/${id}` });
+      res.status(200).json({ txLink: `https://arweave.net/${id}`, success: true });
     } catch (error) {
       throwError(500, error);
     }
