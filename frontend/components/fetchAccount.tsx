@@ -5,30 +5,20 @@ import React, { useState } from "react";
 export default function FetchAccount() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [txnLink, setTxnLink] = useState("");
+  const [tkba, setTkba] = useState("");
   const [tokenId, setTokenId] = useState("0");
 
   const handleTKBA = async () => {
     setLoading(true);
     try {
-      await fetch("/api/fetchAccount", {
+      const res = await fetch("/api/fetchAccount", {
         method: "POST",
         body: JSON.stringify({
           tokenId: tokenId,
         }),
-      }).then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          console.log(res.json());
-          res.json().then((data) => {
-            console.log(data);
-            setTxnLink(data.tkbaAddress);
-          });
-        } else {
-          setError("Error");
-          setLoading(false);
-        }
       });
+      const tkbAddress = await res.json();
+      setTkba(tkbAddress);
     } catch (err: any) {
       console.log(err);
       setError(err.message);
@@ -39,6 +29,7 @@ export default function FetchAccount() {
   return (
     <div>
       <button onClick={handleTKBA}>Get TBA</button>
+      {tkba ? <p>{tkba}</p> : <p>TKBA not found</p>}
     </div>
   );
 }
