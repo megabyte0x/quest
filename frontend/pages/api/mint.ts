@@ -7,7 +7,7 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const response = await fetch("http://localhost:5001/api/v1/mint", {
+    const response = await fetch("http://localhost:5001/api/v1/nft/mint", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -15,7 +15,9 @@ export default async function handler(req: any, res: any) {
       body: JSON.stringify({ address, imageURI }),
     });
     const data = await response.json();
-    res.status(200).json(data.txnLink);
+    const txLink = `https://mumbai.polygonscan.com/tx/${data.receipt}`;
+    console.log(txLink);
+    res.status(200).json(txLink);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong while miniting" });
     console.error("Error in /mint:", error);

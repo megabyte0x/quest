@@ -138,13 +138,13 @@ export const getMint = asyncWrap(
         description: "This is Thirdweb by Polygon Developer Advocates",
         image: imageURI, // This can be an image url or file
       };
-      const receipt = await mint(walletAddress, metadata);
+      const txnHash = await mint(walletAddress, metadata);
 
       //* For Later Use cases
       // const tokenId = tx.id; // the id of the NFT minted
       // const nft = await tx.data(); // (optional) fetch details of minted NFT
 
-      res.status(200).json({ receipt });
+      res.status(200).json({ txnHash });
     } catch (error) {
       throwError(500, error);
     }

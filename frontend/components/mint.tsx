@@ -12,14 +12,17 @@ export default function Mint() {
   const handleMint = async () => {
     setLoading(true);
     try {
-      await fetch("/api/mint", {
+      const res = await fetch("/api/mint", {
         method: "POST",
         body: JSON.stringify({
           address: "0xa60f738a60BCA515Ac529b7335EC7CB2eE3891d2",
           imageURI:
             "ipfs://Qmexqj8zmnmB6vxuAoxN7y7V83JKYqHJ1n8tigtKqeC2gb/me.JPG",
         }),
-      }).then((res) => res.json().then((data) => setTxnLink(data.txnLink)));
+      });
+      const data = await res.json();
+      console.log(data);
+      setTxnLink(data);
     } catch (err: any) {
       console.log(err);
       setError(err.message);
@@ -29,7 +32,8 @@ export default function Mint() {
 
   return (
     <div>
-      <button onClick={handleMint}>Mint the NFT</button>
+      <button onClick={handleMint}>Mint the Quest</button>
+      {txnLink ? <p>{txnLink}</p> : <p>Transaction link not found</p>}
     </div>
   );
 }
