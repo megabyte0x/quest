@@ -65,40 +65,40 @@ export const getAssetTransactionData = async (
   address: string,
   tkbAddress: string
 ) => {
-  const tokenBalance: any = [];
-
   try {
     const contractWithBalanceOfInstance = new ethers.Contract(
       CONTRACT_ADDRESSES[0],
       BALANCE_OF_FUNCTION_SIGNATURE,
       provider
     );
-    TOKEN_IDS.map(async (tokenId) => {
-      const balance = await contractWithBalanceOfInstance.balanceOf(
-        address,
-        tokenId
-      );
-      tokenBalance.push(balance);
-    });
-
-    const params = [address, tkbAddress, TOKEN_IDS, tokenBalance, "0x00"];
+    const tokenBalances = await Promise.all(
+      TOKEN_IDS.map(async (tokenId) => {
+        const balance = await contractWithBalanceOfInstance.balanceOf(
+          address,
+          tokenId
+        );
+        return Math.round(
+          parseFloat(ethers.utils.formatUnits(balance, 18)) * 10 ** 18
+        );
+      })
+    );
+    const params = [address, tkbAddress, TOKEN_IDS, tokenBalances, "0x00"];
 
     const encodedParams = ethers.utils.defaultAbiCoder.encode(
       ["address", "address", "uint256[]", "uint256[]", "bytes"],
       params
     );
 
-    const data = safeBatchTransferFromFunctionSelector + encodedParams.slice(2);
+    // const data = safeBatchTransferFromFunctionSelector + encodedParams.slice(2);
 
-    const transactionGasPrice = await provider.estimateGas({
-      to: CONTRACT_ADDRESSES[0],
-      data: data,
-    });
-
+    // // const transactionGasPrice = await provider.estimateGas({
+    // //   to: CONTRACT_ADDRESSES[0],
+    // //   data: data,
+    // // });
+    // console.log("Data:", data);
     const transactionData = {
-      to: CONTRACT_ADDRESSES[0],
-      data: data,
-      gasLimit: ethers.utils.formatEther(transactionGasPrice), // you might need to adjust this value
+      tokenBalance: tokenBalances,
+      tokenId: TOKEN_IDS,
     };
 
     return transactionData;

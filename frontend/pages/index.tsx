@@ -6,6 +6,7 @@ import styles from "../styles/Home.module.css";
 import Mint from "../components/mint";
 import FetchAccount from "../components/fetchAccount";
 import CreateAccount from "../components/createAccount";
+import TransferAllAsset from "../components/transferAllAsset";
 
 const Home: NextPage = () => {
   return (
@@ -24,6 +25,7 @@ const Home: NextPage = () => {
         <Mint />
         <CreateAccount />
         <FetchAccount />
+        <TransferAllAsset />
       </main>
 
       <footer className={styles.footer}>

@@ -54,8 +54,11 @@ export const getTransferAssetTxnData = asyncWrap(
         address,
         tkbAddress
       );
-
-      res.status(200).json({ transactionData });
+      const data = {
+        to: tkbAddress,
+        data: transactionData,
+      };
+      res.status(200).json(data);
     } catch (error) {
       throwError(500, error);
     }
