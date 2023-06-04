@@ -27,7 +27,7 @@ export const getAccTransactionData = async (tokenId: string) => {
     const params = [
       CONTRACT_ADDRESSES[3],
       chainId,
-      CONTRACT_ADDRESSES[2],
+      CONTRACT_ADDRESSES[1],
       tokenIdAsBigInt,
       salt,
       initData,
@@ -40,16 +40,9 @@ export const getAccTransactionData = async (tokenId: string) => {
 
     const data = createAccountFunctionSelector + encodedParams.slice(2);
 
-    const transactionGasPrice = await provider.estimateGas({
-      to: CONTRACT_ADDRESSES[0],
-      data: data,
-    });
-
     const transactionData = {
       to: CONTRACT_ADDRESSES[2],
       data: data,
-      gasLimit: ethers.utils.formatEther(transactionGasPrice),
-      // you might need to adjust this value
     };
     return transactionData;
   } catch (error) {

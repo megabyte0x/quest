@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 
 import Mint from "../components/mint";
 import FetchAccount from "../components/fetchAccount";
+import CreateAccount from "../components/createAccount";
 
 const Home: NextPage = () => {
   return (
@@ -21,6 +22,7 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <ConnectButton />
         <Mint />
+        <CreateAccount />
         <FetchAccount />
       </main>
 

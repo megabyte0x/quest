@@ -4,7 +4,7 @@ import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import type { AppProps } from "next/app";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { polygonMumbai } from "wagmi/chains";
-import { publicProvider } from "wagmi/providers/public";
+import { alchemyProvider } from "wagmi/providers/alchemy";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [
@@ -13,7 +13,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
       ? [polygonMumbai]
       : []),
   ],
-  [publicProvider()]
+  [alchemyProvider({ apiKey: `${process.env.ALCHMEY_KEY}` })]
 );
 
 const { connectors } = getDefaultWallets({

@@ -8,7 +8,7 @@ export default async function handler(req: any, res: any) {
 
   try {
     const response = await fetch(
-      "http://localhost:5001/api/v1/account/fetchAccount",
+      "http://localhost:5001/api/v1/account/createAccountTxnData",
       {
         method: "POST",
         headers: {
@@ -19,12 +19,16 @@ export default async function handler(req: any, res: any) {
     );
 
     const data = await response.json();
+    const txnData = data.transactionData;
+    const contractAddress = data.to;
 
-    res.status(200).json(data.tkbAddress);
+    res
+      .status(200)
+      .json({ txnData: txnData, contractAddress: contractAddress });
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Something went wrong while fetching Account" });
+      .json({ message: "Something went wrong while createAccoutnTxnData" });
     console.error("Error in /fetchAccount Frontend API:", error);
   }
 }

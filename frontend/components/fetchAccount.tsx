@@ -1,5 +1,3 @@
-// Create a transfer all asset component which will fetch the data from the transferAllAssetData API and will sign a transaction using ethers.js library and send it to the safeTransferFromTxn API.
-
 import React, { useState } from "react";
 
 export default function FetchAccount() {

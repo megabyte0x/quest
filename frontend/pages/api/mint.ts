@@ -17,9 +17,9 @@ export default async function handler(req: any, res: any) {
     const data = await response.json();
     const txLink = `https://mumbai.polygonscan.com/tx/${data.receipt}`;
     console.log(txLink);
-    res.status(200).json(txLink);
+    res.status(200).json({ txLink });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong while miniting" });
+    res.status(500).json({ message: "Something went wrong while minting" });
     console.error("Error in /mint:", error);
   }
 }
