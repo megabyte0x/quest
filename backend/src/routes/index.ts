@@ -1,12 +1,14 @@
-import express from "express"
-import adminRoutes from "./admin.route"
+import express from "express";
+import accountRoutes from "../routes/account.route";
+import nftRoutes from "../routes/nft.route";
 
-const router = express.Router()
+// import uploadImageRoutes from "./uploadImage.route";
 
-router.get('/', (_, res) => res.status(200).send("Healthy"));
+const router = express.Router();
 
+router.get("/", (_, res) => res.status(200).send("Healthy"));
 
-router.use('/admin', adminRoutes)
+router.use("/account", accountRoutes);
+router.use("/nft", nftRoutes);
 
-
-export default router
+export default router;
