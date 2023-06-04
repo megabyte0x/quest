@@ -51,7 +51,7 @@ export default function TransferAllAsset() {
           View Transaction
         </a>
       ) : (
-        <div>Not Created Yet!</div>
+        <div>Asset not transferred yet!</div>
       )}
     </div>
   );

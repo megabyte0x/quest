@@ -15,8 +15,7 @@ export default async function handler(req: any, res: any) {
       body: JSON.stringify({ address, imageURI }),
     });
     const data = await response.json();
-    const txLink = `https://mumbai.polygonscan.com/tx/${data.receipt}`;
-    console.log(txLink);
+    const txLink = `https://mumbai.polygonscan.com/tx/${data.txnHash}`;
     res.status(200).json({ txLink });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong while minting" });

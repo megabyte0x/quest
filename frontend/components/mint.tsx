@@ -16,12 +16,11 @@ export default function Mint() {
         body: JSON.stringify({
           address: address,
           imageURI:
-            "ipfs://Qmexqj8zmnmB6vxuAoxN7y7V83JKYqHJ1n8tigtKqeC2gb/me.JPG",
+            "ipfs://Qma6TgUxvjRR7p3xRoUPhiVq1FQMjBfemgoquNwz91souF/test.png",
         }),
       });
       const data = await res.json();
-      console.log(data);
-      setTxnLink(data);
+      setTxnLink(data.txLink);
     } catch (err: any) {
       console.log(err);
       setError(err.message);
@@ -32,7 +31,13 @@ export default function Mint() {
   return (
     <div>
       <button onClick={handleMint}>Mint the Quest</button>
-      {txnLink ? <p>{txnLink}</p> : <p>Transaction link not found</p>}
+      {txnLink ? (
+        <a href={txnLink} target="_blank">
+          View Transaction
+        </a>
+      ) : (
+        <div>The QUEST NFT not minted yet!</div>
+      )}
     </div>
   );
 }
